@@ -1,1 +1,1 @@
-data = date(2023,7,1)
+CadastrarClientes(input("Digite o nome do cliente: ")), int(input("Digite o limite de transações diárias: ")), float(input("Digite o saldo inicial: "))),

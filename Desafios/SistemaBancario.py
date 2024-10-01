@@ -1,4 +1,16 @@
 from datetime import date
+
+clientes = []
+contas = []
+
+def IniciarSistema():
+    print("Bem-vindo ao Sistema Bancário")
+    escolha = input("Você é administrador? (s/n): ").lower()
+    if escolha == 's':
+        MenuAdministrador()
+    else:
+        nome = input("Digite seu nome")
+
 def Banco(nome, extrato, transacao, data):
     ultima_data = data
     while True:
@@ -52,15 +64,39 @@ def Sacar(valor, extrato, transacao):
 def ExibirExtrato(extrato, transacao):
     print(f"Saldo Atual: {extrato}, Transacoes: {transacao}")
 
-def CadastrarClienta():
-    return ""
+def CadastrarClientes(nome):
+    cliente = {"nome": nome}
+    return cliente
 
-def CadastrarContaBancaria():
-    return ""
+def CadastrarContaBancaria(cliente, transacoes, extrato):
+    conta = {"nome": cliente["nome"], "transacoes": transacoes, "extrato": extrato}
+    contas.append(conta)
+    clientes.append(cliente)
+    return conta
 
-nome = "Joao"
-extrato = 0
-transacao = 10
-data = date(2023,7,1)
+def ExibirClientes():
+    if not clientes:
+        print("Empty")
+    else:
+        for cliente, conta in zip(clientes, contas):
+            print(f"{cliente['nome']}: {conta}")
 
-Banco(nome, extrato, transacao, data)
+def MenuAdministrador():
+    print("Bem vindo Adm")
+    while True:
+        opcoes = {
+                1: lambda: ExibirClientes(),
+                2: lambda: CadastrarContaBancaria(CadastrarClientes(input("Digite o nome do cliente: ")), int(input("Digite o limite de transações diárias: ")), float(input("Digite o saldo inicial: "))),
+        }
+        escolha = int(input("Escolha o tipo de operacao desejada \n [1]Exibir Clientes \n [2]Cadastrar Clientes \n [3]Sair\n"))
+
+        if escolha == 3:
+            IniciarSistema()
+        elif escolha in opcoes:
+            resultado = opcoes[escolha]() 
+            if resultado is not None:
+                print(resultado)
+            else:
+                print("Entre um valor valido")
+
+IniciarSistema()
