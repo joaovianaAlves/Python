@@ -102,7 +102,7 @@ def SalvarDadosCliente(nome, extrato, transacao):
         dados_clientes[nome]['extrato'] = extrato
         dados_clientes[nome]['transacoes'] = transacao
 
-def MenuAdministrador():
+def MenuAdministrador():    
     print("Bem vindo, Administrador!")
     while True:
         opcoes = {
